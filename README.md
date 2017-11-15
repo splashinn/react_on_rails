@@ -2,7 +2,7 @@
 
 *If this projects helps you, please give us a star!*
 
-[ShakaCode is hiring team members](http://www.shakacode.com/about/#work-with-us) for our own app, [Friends and Guests](https://www.friendsandguests.com).
+[ShakaCode is hiring team members](http://www.shakacode.com/about/#work-with-us) for our own vacation rental listing site app, [Hawaii Chee](https://www.hawaiichee.com).
 
 # React on Rails v10 is based on Webpacker 3.0!
 
@@ -23,14 +23,14 @@ Given that Webpacker already provides React integration, why would you add React
 
 ----
 
-## Steps to a New App with rails/webpacker v3 plus React on Rails v9:
+## Steps to a New App with rails/webpacker v3 plus latest React on Rails:
 First be sure to run `rails -v` and check that you are using Rails 5.1.3 or above. If you are using an older version of Rails, you'll need to install webpacker with React per the instructions [here](https://github.com/rails/webpacker).
 
 ### Basic installation for a new Rails App
 *See below for steps on an existing Rails app*
 
 1. New Rails app: `rails new my-app --webpack=react`. `cd` into the directory.
-2. Add gem version: `gem 'react_on_rails', '~> 9.0.1'`
+2. Add gem version: `gem 'react_on_rails', '10.0.2' # prefer exact gem version to match npm version`
 3. Run the generator: `rails generate react_on_rails:install`
 4. Start the app: `rails s`
 5. Visit http://localhost:3000/hello_world
@@ -143,6 +143,7 @@ React on Rails integrates Facebook's [React](https://github.com/facebook/react) 
     - [Initializer Configuration: config/initializers/react_on_rails.rb](#initializer-configuration)
     - [Including your React Component in your Rails Views](#including-your-react-component-in-your-rails-views)
     - [I18n](#i18n)
+    - [Convert rails-5 API only app to rails app](#convert-rails-5-api-only-app-to-rails-app)
 + [How it Works](#how-it-works)
     - [Client-Side Rendering vs. Server-Side Rendering](#client-side-rendering-vs-server-side-rendering)
     - [Building the Bundles](#building-the-bundles)
@@ -187,6 +188,7 @@ To upgrade existing apps to React on Rails 8 see the [Installation Overview](doc
 
 **For more detailed instructions on a fresh Rails app**, see the [React on Rails Basic Tutorial](docs/tutorial.md).
 
+**If you have rails-5 API only project**, Then [convert rails-5 API only app to rails app](#convert-rails-5-api-only-app-to-rails-app) before [getting started](#getting-started-with-an-existing-rails-app).
 1. Add the following to your Gemfile and `bundle install`. We recommend fixing the version of React on Rails, as you will need to keep the exact version in sync with the version in your `client/package.json` file.
 
   ```ruby
@@ -275,6 +277,27 @@ You can enable the i18n functionality with [react-intl](https://github.com/yahoo
 React on Rails provides an option for automatic conversions of Rails `*.yml` locale files into `*.js` files for `react-intl`.
 
 See the [How to add I18n](docs/basics/i18n.md) for a summary of adding I18n.
+
+### Convert rails-5 API only app to rails app
+
+1. Go to the directory where you created your app
+
+```
+rails new your-current-app-name
+```
+
+Rails will start creating the app and will skip the files you have already created. If there is some conflict then it will stop and you need to resolve it manually. be careful at this step as it might replace you current code in conflicted files.
+
+2. Resolve conflicts
+
+```
+1. Press "d" to see the difference
+2. If it is only adding lines then press "y" to continue
+3. If it is removeing some of your code then press "n" and add all additions manually
+```
+
+3. Run `bundle install` and follow [Getting started](#getting-started-with-an-existing-rails-app)
+
 
 ## NPM
 All JavaScript in React On Rails is loaded from npm: [react-on-rails](https://www.npmjs.com/package/react-on-rails). To manually install this (you did not use the generator), assuming you have a standard configuration, run this command (assuming you are in the directory where you have your `node_modules`):
