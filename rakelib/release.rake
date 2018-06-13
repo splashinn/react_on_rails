@@ -4,9 +4,6 @@ require_relative "task_helpers"
 require_relative File.join(gem_root, "lib", "react_on_rails", "version_syntax_converter")
 require_relative File.join(gem_root, "lib", "react_on_rails", "git_utils")
 require_relative File.join(gem_root, "lib", "react_on_rails", "utils")
-
-# rubocop:disable Lint/UnneededDisable
-# rubocop:disable Layout/EmptyLinesAroundArguments
 desc("Releases both the gem and node package using the given version.
 
 IMPORTANT: the gem version must be in valid rubygem format (no dashes).
@@ -22,8 +19,6 @@ which are installed via `bundle install` and `yarn`
 2nd argument: Perform a dry run by passing 'true' as a second argument.
 
 Example: `rake release[2.1.0,false]`")
-# rubocop:enable Layout/EmptyLinesAroundArguments
-# rubocop:enable Lint/UnneededDisable
 
 # rubocop:disable Metrics/BlockLength
 task :release, %i[gem_version dry_run tools_install] do |_t, args|
@@ -75,7 +70,7 @@ task :release, %i[gem_version dry_run tools_install] do |_t, args|
     sh_in_dir(gem_root, "gem release")
 
     # Update master with new npm version
-    sh_in_dir(File.join(gem_root, "spec", "dummy", "client"), "yarn add react-on-rails@#{npm_version}")
+    sh_in_dir(File.join(gem_root, "spec", "dummy", "client"), "yarn add react-on-rails@#{npm_version} --exact")
     sh_in_dir(gem_root, "git commit -am 'Updated spec/dummy/client/package.json latest version'")
     sh_in_dir(gem_root, "git push")
   end

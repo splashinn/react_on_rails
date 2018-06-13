@@ -6,6 +6,7 @@ import ReactOnRails from 'react-on-rails';
 import HelloWorld from '../components/HelloWorld';
 import HelloWorldWithLogAndThrow from '../components/HelloWorldWithLogAndThrow';
 import HelloWorldES5 from '../components/HelloWorldES5';
+import HelloWorldRehydratable from '../components/HelloWorldRehydratable';
 import HelloWorldApp from './HelloWorldApp';
 import BrokenApp from './BrokenApp';
 
@@ -29,6 +30,8 @@ import ReactHelmetApp from './ReactHelmetClientApp';
 // Demonstrate using Images
 import ImageExample from '../components/ImageExample';
 
+import SetTimeoutLoggingApp from './SetTimeoutLoggingApp';
+
 ReactOnRails.setOptions({
   traceTurbolinks: true,
 });
@@ -38,6 +41,7 @@ ReactOnRails.register({
   HelloWorld,
   HelloWorldWithLogAndThrow,
   HelloWorldES5,
+  HelloWorldRehydratable,
   ReduxApp,
   ReduxSharedStoreApp,
   HelloWorldApp,
@@ -50,6 +54,7 @@ ReactOnRails.register({
   RenderedHtml,
   ReactHelmetApp,
   ImageExample,
+  SetTimeoutLoggingApp,
 });
 
 ReactOnRails.registerStore({

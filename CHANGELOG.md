@@ -3,10 +3,95 @@ All notable changes to this project's source code will be documented in this fil
 
 Contributors: please follow the recommendations outlined at [keepachangelog.com](http://keepachangelog.com/). Please use the existing headings and styling as a guide, and add a link for the version diff at the bottom of the file. Also, please update the `Unreleased` link to compare to the latest release version.
 
+See [Upgrading React on Rails](./docs/basics/upgrading-react-on-rails.md) for more concise instructions on upgrading.
+
 ## [Unreleased]
 Changes since last non-beta release.
 
 *Please add entries here for your pull requests that are not yet released.*
+
+#### Changed
+- Document how to manually rehydrate XHR-substituted components on client side. [PR 1095](https://github.com/shakacode/react_on_rails/pull/1095) by [hchevalier](https://github.com/hchevalier).
+
+### [11.0.7] - 2018-05-11
+#### Fixed
+- Fix npm publshing. [PR 1090](https://github.com/shakacode/react_on_rails/pull/1090) by [justin808](https://github.com/justin808).
+
+### [11.0.6] - 2018-05-11
+#### Changed
+- Even more detailed errors for Honeybadger and Sentry when there's a JSON parse error on server rendering. [PR 1086](https://github.com/shakacode/react_on_rails/pull/1086) by [justin808](https://github.com/justin808).
+
+### [11.0.5] - 2018-05-11
+#### Changed
+- More detailed errors for Honeybadger and Sentry. [PR 1081](https://github.com/shakacode/react_on_rails/pull/1081) by [justin808](https://github.com/justin808).
+
+### [11.0.4] - 2018-05-3
+
+#### Changed
+- Throw if configuration.generated_assets_dir specified, and using webpacker, and if that doesn't match the public_output_path. Otherwise, warn if generated_assets_dir is specified
+- Fix the setup for tests for spec/dummy so they automatically rebuild by correctly setting the source_path in the webpacker.yml
+- Updated documentation for the testing setup.
+- Above in [PR 1072](https://github.com/shakacode/react_on_rails/pull/1072) by [justin808](https://github.com/justin808).
+- `react_component_hash` has implicit `prerender: true` because it makes no sense to have react_component_hash not use prerrender. Improved docs on `react_component_hash`. Also, fixed issue where checking gem existence. [PR 1077](https://github.com/shakacode/react_on_rails/pull/1077) by [justin808](https://github.com/justin808).
+
+### [11.0.3] - 2018-04-24
+
+#### Fixed
+- Fixed issue with component script initialization when using react_component_hash. [PR 1071](https://github.com/shakacode/react_on_rails/pull/1071) by [jblasco3](https://github.com/jblasco3).
+
+### [11.0.2] - 2018-04-24
+
+#### Fixed
+- Server rendering error for React on Rails Pro. [PR 1069](https://github.com/shakacode/react_on_rails/pull/1069) by [justin808](https://github.com/justin808).
+
+### [11.0.1] - 2018-04-23
+
+#### Added
+- `react_component` allows logging_on_server specified at the component level. [PR 1068](https://github.com/shakacode/react_on_rails/pull/1068) by [justin808](https://github.com/justin808).
+
+#### Fixed
+- Missing class when throwing some error messages. [PR 1068](https://github.com/shakacode/react_on_rails/pull/1068) by [justin808](https://github.com/justin808).
+
+### [11.0.0] - 2018-04-21
+
+## MIGRATION for v11
+- Unused `server_render_method` was removed from the configuration. If you want to use a custom renderer, contact justin@shakacode.com. We have a custom node rendering solution in production for egghead.io.
+- Removed ReactOnRails::Utils.server_bundle_file_name and ReactOnRails::Utils.bundle_file_name. These are part of the performance features of "React on Rails Pro".
+- Removed ENV["TRACE_REACT_ON_RAILS"] usage and replacing it with config.trace.
+
+#### Enhancements: Better Error Messages, Support for React on Rails Pro
+- Tracing (debugging) options are simplified with a single `config.trace` setting that defaults to true for development and false otherwise.
+- Calls to setTimeout, setInterval, clearTimeout will now always log some message if config.trace is true. Your JavaScript code should not be calling setTimout when server rendering. 
+- Errors raised are of type ReactOnRailsError, so you can see they came from React on Rails for debugging.
+- Removed ReactOnRails::Utils.server_bundle_file_name and ReactOnRails::Utils.bundle_file_name.
+- No longer logging the `railsContext` when server logging.
+- Rails.env is provided in the default railsContext, as suggested in [issue #697](https://github.com/shakacode/react_on_rails/issues/697).
+[PR 1065](https://github.com/shakacode/react_on_rails/pull/1065) by [justin808](https://github.com/justin808).
+
+#### Fixes
+- More exact version checking. We keep the react_on_rails gem and the react-on-rails node package at
+the same exact versions so that we can be sure that the interaction between them is precise.
+This is so that if a bug is detected after some update, it's critical that
+both the gem and the node package get the updates. This change ensures that the package.json specification does not use a
+~ or ^ as reported in [issue #1062](https://github.com/shakacode/react_on_rails/issues/1062). [PR 1063](https://github.com/shakacode/react_on_rails/pull/1063) by [justin808](https://github.com/justin808).
+- Sprockets: Now use the most recent manifest when creating symlinks. See [issue #1023](https://github.com/shakacode/react_on_rails/issues/1023). [PR 1064](https://github.com/shakacode/react_on_rails/pull/1064) by [justin808](https://github.com/justin808).
+
+### [10.1.4] - 2018-04-11
+
+#### Fixed
+- Changed i18n parsing to convert ruby i18n argument syntax into FormatJS argument syntax. [PR 1046](https://github.com/shakacode/react_on_rails/pull/1046) by [sepehr500](https://github.com/sepehr500).
+
+- Fixed an issue where the spec compiler check would fail if the project path contained spaces. [PR 1045](https://github.com/shakacode/react_on_rails/pull/1045) by [andrewmarkle](https://github.com/andrewmarkle).
+
+- Updated the default `build_production_command` that caused production assets to be built with development settings. [PR 1053](https://github.com/shakacode/react_on_rails/pull/1053) by [Roman Kushnir](https://github.com/RKushnir).
+
+### [10.1.3] - 2018-02-28
+#### Fixed
+- Improved error reporting on version mismatches between Javascript and Ruby packages. [PR 1025](https://github.com/shakacode/react_on_rails/pull/1025) by [theJoeBiz](https://github.com/squadette).
+
+### [10.1.2] - 2018-02-27
+#### Fixed
+- Use ReactDOM.hydrate() for hydrating a SSR component if available. ReactDOM.render() has been deprecated for use on SSR components in React 16 and this addresses the warning. [PR 1028](https://github.com/shakacode/react_on_rails/pull/1028) by [theJoeBiz](https://github.com/theJoeBiz).
 
 ### [10.1.1] - 2018-01-26
 #### Fixed
@@ -683,7 +768,18 @@ Best done with Object destructing:
 ##### Fixed
 - Fix several generator related issues.
 
-[Unreleased]: https://github.com/shakacode/react_on_rails/compare/10.1.1...master
+[Unreleased]: https://github.com/shakacode/react_on_rails/compare/11.0.7...master
+[11.0.7]: https://github.com/shakacode/react_on_rails/compare/11.0.6...11.0.7
+[11.0.6]: https://github.com/shakacode/react_on_rails/compare/11.0.5...11.0.6
+[11.0.5]: https://github.com/shakacode/react_on_rails/compare/11.0.4...11.0.5
+[11.0.4]: https://github.com/shakacode/react_on_rails/compare/11.0.3...11.0.4
+[11.0.3]: https://github.com/shakacode/react_on_rails/compare/11.0.2...11.0.3
+[11.0.2]: https://github.com/shakacode/react_on_rails/compare/11.0.1...11.0.2
+[11.0.1]: https://github.com/shakacode/react_on_rails/compare/11.0.0...11.0.1
+[11.0.0]: https://github.com/shakacode/react_on_rails/compare/10.1.4...11.0.0
+[10.1.4]: https://github.com/shakacode/react_on_rails/compare/10.1.3...10.1.4
+[10.1.3]: https://github.com/shakacode/react_on_rails/compare/10.1.2...10.1.3
+[10.1.2]: https://github.com/shakacode/react_on_rails/compare/10.1.1...10.1.2
 [10.1.1]: https://github.com/shakacode/react_on_rails/compare/10.1.0...10.1.1
 [10.1.0]: https://github.com/shakacode/react_on_rails/compare/10.0.2...10.1.0
 [10.0.2]: https://github.com/shakacode/react_on_rails/compare/10.0.1...10.0.2

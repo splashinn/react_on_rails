@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require "connection_pool"
-require_relative "server_rendering_pool/exec"
-require_relative "server_rendering_pool/node"
+require_relative "server_rendering_pool/ruby_embedded_java_script"
 
 # Based on the react-rails gem.
 # None of these methods should be called directly.
@@ -11,18 +10,18 @@ module ReactOnRails
   module ServerRenderingPool
     class << self
       def pool
-        if ReactOnRails.configuration.server_render_method == "NodeJS"
-          ServerRenderingPool::Node
-        else
-          ServerRenderingPool::Exec
-        end
+        @pool ||= if ReactOnRails::Utils.react_on_rails_pro?
+                    ReactOnRailsPro::ServerRenderingPool::ProRendering
+                  else
+                    ReactOnRails::ServerRenderingPool::RubyEmbeddedJavaScript
+                  end
       end
 
-      # rubocop:disable Style/MethodMissing
-      def method_missing(sym, *args, &block)
-        pool.send sym, *args, &block
+      delegate :reset_pool_if_server_bundle_was_modified, :reset_pool, to: :pool
+
+      def server_render_js_with_console_logging(js_code, render_options)
+        pool.exec_server_render_js(js_code, render_options)
       end
-      # rubocop:enable Style/MethodMissing
     end
   end
 end

@@ -10,6 +10,7 @@ import HelloString from '../non_react/HelloString';
 // React components
 import HelloWorld from '../components/HelloWorld';
 import HelloWorldES5 from '../components/HelloWorldES5';
+import HelloWorldRehydratable from '../components/HelloWorldRehydratable';
 import HelloWorldWithLogAndThrow from '../components/HelloWorldWithLogAndThrow';
 
 // Generator function
@@ -42,11 +43,14 @@ import ReactHelmetApp from './ReactHelmetServerApp';
 // Demonstrate using Images
 import ImageExample from '../components/ImageExample';
 
+import SetTimeoutLoggingApp from './SetTimeoutLoggingApp';
+
 ReactOnRails.register({
   BrokenApp,
   HelloWorld,
   HelloWorldWithLogAndThrow,
   HelloWorldES5,
+  HelloWorldRehydratable,
   ReduxApp,
   ReduxSharedStoreApp,
   HelloWorldApp,
@@ -58,6 +62,7 @@ ReactOnRails.register({
   RenderedHtml,
   ReactHelmetApp,
   ImageExample,
+  SetTimeoutLoggingApp,
 });
 
 ReactOnRails.registerStore({

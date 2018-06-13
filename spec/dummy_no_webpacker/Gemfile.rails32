@@ -19,7 +19,7 @@ gem 'jquery-rails'
 
 gem 'puma'
 
-gem 'turbolinks', github: "turbolinks/turbolinks-classic"
+gem 'turbolinks', "2.5.4" # github: "turbolinks/turbolinks-classic"
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -52,7 +52,7 @@ group :development, :test do
   gem "pry-rescue"
   gem "pry-byebug"
   gem "awesome_print"
-  gem "rubocop", "~> 0.50", require: false
+  gem "rubocop", require: false
   gem "ruby-lint", require: false
   gem "listen"
 
